@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Native 개발자 포트폴리오</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 20px;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 70%);
+            animation: subtleFloat 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes subtleFloat {
+            0%, 100% { transform: rotate(0deg) translateX(0); }
+            50% { transform: rotate(180deg) translateX(20px); }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #61dafb, #21759b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            font-weight: bold;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .profile-info h1 {
+            font-size: 3.2em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .profile-info .title {
+            font-size: 1.4em;
+            opacity: 0.95;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .profile-info .description {
+            font-size: 1.1em;
+            max-width: 600px;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.15);
+            padding: 12px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .section {
+            padding: 60px 40px;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .section h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .skill-category h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-icon {
+            font-size: 24px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.2);
+        }
+
+        .skill-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            border: 1px solid #e9ecef;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .project-header {
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-header img.project-icon {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: transparent;
+        }
+
+        .project-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: projectFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes projectFloat {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-title {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .project-period {
+            background: linear-gradient(45deg, #17a2b8, #138496);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .project-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .tech-tag {
+            background: #e9ecef;
+            color: #495057;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .achievements {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .achievements h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .achievements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .achievements li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 25px;
+            color: #555;
+        }
+
+        .achievements li::before {
+            content: '✅';
+            position: absolute;
+            left: 0;
+            top: 5px;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .link-demo {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .link-code {
+            background: linear-gradient(45deg, #6c757d, #495057);
+            color: white;
+        }
+
+        .link-download {
+            background: linear-gradient(45deg, #fd7e14, #e85d04);
+            color: white;
+        }
+
+        .project-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .interests-section {
+            text-align: center;
+        }
+
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .interest-item {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .interest-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .interest-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .interest-item h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+        }
+
+        .highlight-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 0;
+            }
+            
+            .header {
+                padding: 60px 20px;
+            }
+            
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-img {
+                width: 140px;
+                height: 140px;
+                font-size: 48px;
+            }
+            
+            .profile-info h1 {
+                font-size: 2.2em;
+            }
+            
+            .section {
+                padding: 40px 20px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="profile-section">
+                <div class="profile-img">📱</div>
+                <div class="profile-info">
+                    <h1>React Native 개발자</h1>
+                    <div class="title">Mobile App Developer</div>
+                    <div class="description">
+                        React Native 기반 앱 개발에 주력하며, UI/UX 최적화와 상태 관리에 강점을 가진 개발자입니다.
+                        주차장 내비게이션 앱인 워치마일과 마비노기 모바일 유저를 위한 콘텐츠 체크 앱인 "마비노트"를 비롯해 다양한 앱을 설계 및 배포한 경험이 있습니다.
+                    </div>
+                </div>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📧</span>
+                    <span>ekfenfl16@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span>💼</span>
+                    <span>GitHub Profile</span>
+                </div>
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>React Native Developer</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="section">
+            <h2>
+                <div class="section-icon">🛠️</div>
+                기술 스택
+            </h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3><span class="skill-icon">📱</span>Mobile Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React Native</span>
+                        <span class="skill-tag">Expo</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">JavaScript</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><span class="skill-icon">🎨</span>UI/UX & Animation</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Reanimated</span>
+                        <span class="skill-tag">React Native Gesture Handler</span>
+                        <span class="skill-tag">StyleSheet</span>
+                        <span class="skill-tag">Figma</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><span class="skill-icon">⚡</span>State Management</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Zustand</span>
+                        <span class="skill-tag">React Query</span>
+                        <span class="skill-tag">Context API</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><span class="skill-icon">💾</span>Database & Storage</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">SQLite</span>
+                        <span class="skill-tag">AsyncStorage</span>
+                        <span class="skill-tag">File System</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><span class="skill-icon">🔧</span>Build & Deploy</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">EAS Build</span>
+                        <span class="skill-tag">OTA Updates</span>
+                        <span class="skill-tag">App Store Connect</span>
+                        <span class="skill-tag">Google Play Console</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><span class="skill-icon">📡</span>Native Features</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">BLE (Beacons)</span>
+                        <span class="skill-tag">Location Services</span>
+                        <span class="skill-tag">Push Notifications</span>
+                        <span class="skill-tag">Camera & Media</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="section">
+            <h2>
+                <div class="section-icon">💼</div>
+                주요 프로젝트
+            </h2>
+            
+            <div class="projects-grid">
+                <!-- 프로젝트 1: DMC 한강 호반써밋 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <img src="assets/hoban_pre.jpg" alt="DMC 아이콘" class="project-icon">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-title">DMC 한강 호반써밋 실내 내비게이션 앱</div>
+                        <div class="project-period">2022.07 – 2022.10</div>
+                        <div class="project-description">
+                            아파트 입주민용 실내 위치 안내 앱 개발. Bluetooth 및 Beacon 기반 실내 내비게이션 기능을 구현하고 
+                            현장 테스트 및 QA를 진행하여 iOS/Android 양대 스토어에 성공적으로 배포했습니다.
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Expo</span>
+                            <span class="tech-tag">BLE (Beacons)</span>
+                            <span class="tech-tag">Reanimated</span>
+                        </div>
+                        <div class="achievements">
+                            <h4>🏆 주요 성과</h4>
+                            <ul>
+                                <li>Beacon 연동 성공률 95% 이상 확보</li>
+                                <li>앱 초기 구동 오류 90% 이상 개선</li>
+                                <li>실내 위치 정확도 ±1.5m 오차 내 확보</li>
+                                <li>iOS/Android 양대 스토어 동시 배포 완료</li>
+                            </ul>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://apps.apple.com/kr/app/%EC%9B%8C%EC%B9%98%EB%A7%88%EC%9D%BC-%ED%98%B8%EB%B0%98-dmc/id1660187115" class="project-link link-demo">App Store</a>
+                            <a href="https://play.google.com/store/apps/details?id=com.vestellalab.watchmilepublic&pcampaignid=web_share" class="project-link link-demo">Google Play</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 프로젝트 2: WatchMile -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <img src="assets/chenho_pre.jpg" alt="천호 아이콘" class="project-icon">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-title">WatchMile 천호역 공영주차장 앱 리뉴얼</div>
+                        <div class="project-period">2023.02 – 2023.07</div>
+                        <div class="project-description">
+                            2년 이상 운영된 구버전 앱을 최신 React Native 버전으로 마이그레이션하고 
+                            전면 리디자인 및 알고리즘 최적화를 수행한 대규모 리뉴얼 프로젝트입니다.
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">React Native 0.72</span>
+                            <span class="tech-tag">React 18</span>
+                            <span class="tech-tag">Zustand</span>
+                            <span class="tech-tag">React Query</span>
+                            <span class="tech-tag">EAS</span>
+                        </div>
+                        <div class="achievements">
+                            <h4>🏆 주요 성과</h4>
+                            <ul>
+                                <li>로딩 속도 50% 이상 개선 (2.1초 → 1.1초)</li>
+                                <li>앱 크래시율 대폭 감소</li>
+                                <li>QA 리드타임 2일 단축 (자동화 프로세스 도입)</li>
+                                <li>전체 UI 현대적 디자인으로 재구성</li>
+                            </ul>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://apps.apple.com/kr/app/%EC%9B%8C%EC%B9%98%EB%A7%88%EC%9D%BC-%EC%B2%9C%ED%98%B8%EC%97%AD-%EA%B3%B5%EC%98%81%EC%A3%BC%EC%B0%A8%EC%9E%A5/id1536063794" class="project-link link-demo">App store</a>
+                            <a href="https://play.google.com/store/apps/details?id=com.vestellalab.watchmilehobansummitdmc&pcampaignid=web_share" class="project-link link-demo">Google Play</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 프로젝트 3: 마비노트 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <img src="assets/mabinote_pre.png" alt="마비노트 아이콘" class="project-icon">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-title">마비노트 (MabiNote)</div>
+                        <div class="project-period">2025.01 – 2025.03</div>
+                        <div class="project-description">
+                            마비노기 모바일 유저를 위한 일일/주간 콘텐츠 체크 앱. 
+                            데일리 반복 콘텐츠, 위클리 리셋, 즐겨찾기, 필터 기능 등을 지원하며 
+                            모바일 UX 최적화에 중점을 둔 개인 프로젝트입니다.
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">React Native 0.72</span>
+                            <span class="tech-tag">Expo Router</span>
+                            <span class="tech-tag">Zustand</span>
+                            <span class="tech-tag">SQLite</span>
+                            <span class="tech-tag">Reanimated 3</span>
+                            <span class="tech-tag">EAS Build</span>
+                        </div>
+                        <div class="achievements">
+                            <h4>🏆 주요 성과</h4>
+                            <ul>
+                                <li>기기별 초기 구동 시간 40% 개선</li>
+                                <li>평균 콘텐츠 접근 시간 약 50% 단축</li>
+                                <li>EAS 빌드를 통한 APK 생성 및 배포 완료</li>
+                                <li>다크 모드 및 반응형 레이아웃 지원</li>
+                            </ul>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Arkaltale/mabinote" class="project-link link-code">GitHub</a>
+                            <a href="https://drive.google.com/file/d/1W2wCoaUXMf9lJMu9iqrTB3w0ANYAa6g6/view?usp=sharing" class="project-link link-download">APK 다운로드</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 기술적 관심사 Section -->
+        <div class="section interests-section">
+            <h2>
+                <div class="section-icon">🧠</div>
+                기술적 관심사
+            </h2>
+            <div class="interests-grid">
+                <div class="interest-item">
+                    <div class="interest-icon">⚡</div>
+                    <h3>상태 관리 최적화</h3>
+                    <p>Zustand, Jotai 등 현대적인 상태 관리 라이브러리를 활용한 성능 최적화</p>
+                </div>
+                <div class="interest-item">
+                    <div class="interest-icon">🚀</div>
+                    <h3>빌드 자동화</h3>
+                    <p>EAS Build, OTA 업데이트를 통한 React Native 앱 배포 프로세스 자동화</p>
+                </div>
+                <div class="interest-item">
+                    <div class="interest-icon">🎨</div>
+                    <h3>UI/UX 애니메이션</h3>
+                    <p>Reanimated를 활용한 부드럽고 직관적인 사용자 인터페이스 구현</p>
+                </div>
+                <div class="interest-item">
+                    <div class="interest-icon">💾</div>
+                    <h3>로컬 데이터 처리</h3>
+                    <p>SQLite와 AsyncStorage를 활용한 효율적인 오프라인 데이터 관리</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>🎯 개발 철학</h3>
+                <p>
+                    사용자 경험을 최우선으로 생각하며, 성능과 안정성을 겸비한 모바일 앱 개발에 전념합니다. 
+                    지속적인 학습과 기술 혁신을 통해 더 나은 서비스를 제공하는 것이 목표입니다.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
