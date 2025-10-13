@@ -1,585 +1,604 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React Native 개발자 포트폴리오</title>
-    <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    font-family: 'Pretendard Variable', sans-serif;
-    line-height: 1.6;
-    background: #f5f7f6;
-    color: #333;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 40px auto;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-  }
-
-  .header {
-    background: linear-gradient(135deg, #bfe2d7, #e0f0e7);
-    color: #2e2e2e;
-    padding: 80px 40px;
-    text-align: center;
-  }
-
-  .profile-section {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-  }
-
-  .profile-img {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    background: url('assets/your_profile.jpg') center/cover no-repeat;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .profile-info h1 {
-    font-size: 2.6rem;
-    font-weight: 700;
-  }
-
-  .profile-info .title {
-    font-size: 1.3rem;
-    color: #666;
-    margin: 8px 0 16px;
-  }
-
-  .profile-info .description {
-    font-size: 1rem;
-    max-width: 600px;
-    line-height: 1.8;
-  }
-
-  .contact-info {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
-    flex-wrap: wrap;
-  }
-
-  .contact-item {
-    background: #ffffffcc;
-    padding: 10px 18px;
-    border-radius: 25px;
-    font-size: 0.95rem;
-    color: #333;
-    border: 1px solid #ddd;
-  }
-
-  .section {
-    padding: 60px 40px;
-    position: relative;
-  }
-
-  .section:nth-child(even) {
-    background: #fafafa;
-  }
-
-  .section h2 {
-    font-size: 2rem;
-    margin-bottom: 40px;
-    color: #2c3e50;
-    text-align: center;
-  }
-
-  .section-icon {
-    display: none;
-  }
-
-  .skills-container,
-  .projects-grid,
-  .interests-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-  }
-
-  .skill-category,
-  .interest-item {
-    background: #ffffff;
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: 0.3s ease;
-  }
-
-  .skill-category:hover,
-  .interest-item:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    transform: translateY(-3px);
-  }
-
-  .skill-category h3 {
-    font-size: 1.1rem;
-    margin-bottom: 16px;
-    color: #2b2b2b;
-  }
-
-  .skill-tags,
-  .tech-tag,
-  .skill-tag {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .skill-tag,
-  .tech-tag {
-    background: #e6f0ec;
-    color: #2c3e50;
-    font-size: 0.85rem;
-    padding: 6px 12px;
-    border-radius: 16px;
-    font-weight: 500;
-  }
-
-  .project-card {
-    background: #ffffff;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  }
-
-  .project-header {
-    height: 140px;
-    background-color: #f3f3f3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .project-header img.project-icon {
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
-    border-radius: 12px;
-    background-color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  }
-
-  .project-content {
-    padding: 24px;
-    flex: 1;
-  }
-
-  .project-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 8px;
-  }
-
-  .project-period {
-    display: inline-block;
-    background-color: #ddeee8;
-    color: #2e665d;
-    padding: 4px 12px;
-    font-size: 0.85rem;
-    border-radius: 12px;
-    margin-bottom: 12px;
-  }
-
-  .project-description {
-    font-size: 0.95rem;
-    color: #555;
-    margin-bottom: 16px;
-  }
-
-  .achievements {
-    background: #f7f9f8;
-    padding: 16px;
-    border-radius: 10px;
-    margin-bottom: 16px;
-  }
-
-  .achievements h4 {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    color: #333;
-  }
-
-  .achievements ul {
-    list-style: disc;
-    padding-left: 20px;
-  }
-
-  .achievements li {
-    font-size: 0.9rem;
-    margin-bottom: 6px;
-    color: #444;
-  }
-
-  .project-links {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 12px;
-  }
-
-  .project-link {
-    background: #4e937a;
-    color: white;
-    padding: 10px 16px;
-    text-decoration: none;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: 0.2s ease;
-  }
-
-  .project-link:hover {
-    background: #3f7c66;
-  }
-
-  .highlight-box {
-    background: #e3f0ea;
-    padding: 30px;
-    border-radius: 12px;
-    text-align: center;
-    margin-top: 50px;
-  }
-
-  .highlight-box h3 {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-  }
-
-  .highlight-box p {
-    font-size: 1rem;
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.8;
-  }
-  .project-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
-    margin-bottom: 16px;
-    }
-    .tech-tag {
-    background-color: #e6f0ec;
-    color: #2c3e50;
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 16px;
-    white-space: nowrap;
-    }
-    .project-link {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: white;
-    text-decoration: none;
-    border-radius: 9999px;
-    transition: background 0.3s, box-shadow 0.2s;
-    min-width: 110px;
-    text-align: center;
-    }
-    .project-links {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 20px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Native 개발자 포트폴리오</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-  @media (max-width: 768px) {
+    body {
+      font-family: 'Pretendard Variable', sans-serif;
+      line-height: 1.6;
+      background: #f5f7f6;
+      color: #333;
+    }
+
     .container {
-      margin: 20px;
+      max-width: 1200px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
     }
 
-    .profile-section {
-      flex-direction: column;
+    .header {
+      background: linear-gradient(135deg, #bfe2d7, #e0f0e7);
+      color: #2e2e2e;
+      padding: 80px 40px;
       text-align: center;
     }
 
-    .projects-grid,
-    .skills-container {
-      grid-template-columns: 1fr;
+    .profile-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
     }
-  }
-</style>
+
+    .profile-img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: url('assets/your_profile.jpg') center/cover no-repeat;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-info h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+    }
+
+    .profile-info .title {
+      font-size: 1.3rem;
+      color: #666;
+      margin: 8px 0 16px;
+    }
+
+    .profile-info .description {
+      font-size: 1rem;
+      max-width: 600px;
+      line-height: 1.8;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      background: #ffffffcc;
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+
+    .section {
+      padding: 60px 40px;
+      position: relative;
+    }
+
+    .section:nth-child(even) {
+      background: #fafafa;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    .section-icon {
+      display: none;
+    }
+
+    .skills-container,
+    .projects-grid,
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .skill-category,
+    .interest-item {
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      transition: 0.3s ease;
+    }
+
+    .skill-category:hover,
+    .interest-item:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      transform: translateY(-3px);
+    }
+
+    .skill-category h3 {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      color: #2b2b2b;
+    }
+
+    .skill-tags,
+    .tech-tag,
+    .skill-tag {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-tag,
+    .tech-tag {
+      background: #e6f0ec;
+      color: #2c3e50;
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-weight: 500;
+    }
+
+    .project-card {
+      background: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .project-header {
+      height: 140px;
+      background-color: #f3f3f3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-header img.project-icon {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      border-radius: 12px;
+      background-color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .project-content {
+      padding: 24px;
+      flex: 1;
+    }
+
+    .project-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    .project-period {
+      display: inline-block;
+      background-color: #ddeee8;
+      color: #2e665d;
+      padding: 4px 12px;
+      font-size: 0.85rem;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .project-description {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 16px;
+    }
+
+    .achievements {
+      background: #f7f9f8;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+    }
+
+    .achievements h4 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .achievements ul {
+      list-style: disc;
+      padding-left: 20px;
+    }
+
+    .achievements li {
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #444;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .project-link {
+      background: #4e937a;
+      color: white;
+      padding: 10px 16px;
+      text-decoration: none;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: 0.2s ease;
+    }
+
+    .project-link:hover {
+      background: #3f7c66;
+    }
+
+    .highlight-box {
+      background: #e3f0ea;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .highlight-box h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .highlight-box p {
+      font-size: 1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      margin-bottom: 16px;
+    }
+
+    .tech-tag {
+      background-color: #e6f0ec;
+      color: #2c3e50;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 16px;
+      white-space: nowrap;
+    }
+
+    .project-link {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+      border-radius: 9999px;
+      transition: background 0.3s, box-shadow 0.2s;
+      min-width: 110px;
+      text-align: center;
+    }
+
+    .project-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 20px;
+      }
+
+      .profile-section {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .projects-grid,
+      .skills-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 
 </head>
+
 <body>
-    <div class="container">
-        <!-- Header Section -->
-        <div class="header">
-            <div class="profile-section">
-                <div class="profile-img">
-                    <img src="assets/profile_img.png" alt="프로필 이미지" class="profile-img">
-                </div>
-                <div class="profile-info">
-                    <h1>React Native 개발자</h1>
-                    <div class="title">Mobile App Developer</div>
-                    <div class="description">
-                        React Native 기반 앱 개발에 주력하며, UI/UX 최적화와 상태 관리에 강점을 가진 개발자입니다.
-                        주차장 내비게이션 앱인 워치마일과 마비노기 모바일 유저를 위한 콘텐츠 체크 앱인 "마비노트"를 비롯해 다양한 앱을 설계 및 배포한 경험이 있습니다.
-                    </div>
-                </div>
-            </div>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span>📧</span>
-                    <span>ekfenfl16@gmail.com</span>
-                </div>
-                <div class="contact-item">
-                    <span>💼</span>
-                    <a href="https://github.com/Arkaltale/mabinote" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
-                        GitHub Profile
-                    </a>
-                </div>
-                <div class="contact-item">
-                    <span>📱</span>
-                    <span>React Native Developer</span>
-                </div>
-            </div>
+  <div class="container">
+    <!-- Header Section -->
+    <div class="header">
+      <div class="profile-section">
+        <div class="profile-img">
+          <img src="assets/profile_img.png" alt="프로필 이미지" class="profile-img">
         </div>
-
-        <!-- Skills Section -->
-        <div class="section">
-            <h2>
-                <div class="section-icon">🛠️</div>
-                기술 스택
-            </h2>
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3><span class="skill-icon">📱</span>Mobile Development</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">React Native</span>
-                        <span class="skill-tag">Expo</span>
-                        <span class="skill-tag">TypeScript</span>
-                        <span class="skill-tag">JavaScript</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><span class="skill-icon">🎨</span>UI/UX & Animation</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Reanimated</span>
-                        <span class="skill-tag">React Native Gesture Handler</span>
-                        <span class="skill-tag">StyleSheet</span>
-                        <span class="skill-tag">Figma</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><span class="skill-icon">⚡</span>State Management</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Zustand</span>
-                        <span class="skill-tag">React Query</span>
-                        <span class="skill-tag">Context API</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><span class="skill-icon">💾</span>Database & Storage</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">SQLite</span>
-                        <span class="skill-tag">AsyncStorage</span>
-                        <span class="skill-tag">File System</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><span class="skill-icon">🔧</span>Build & Deploy</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">EAS Build</span>
-                        <span class="skill-tag">OTA Updates</span>
-                        <span class="skill-tag">App Store Connect</span>
-                        <span class="skill-tag">Google Play Console</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><span class="skill-icon">📡</span>Native Features</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">BLE (Beacons)</span>
-                        <span class="skill-tag">Location Services</span>
-                        <span class="skill-tag">Push Notifications</span>
-                        <span class="skill-tag">Camera & Media</span>
-                    </div>
-                </div>
-            </div>
+        <div class="profile-info">
+          <h1>React Native 개발자</h1>
+          <div class="title">Mobile App Developer</div>
+          <div class="description">
+            React Native 기반 앱 개발에 주력하며, UI/UX 최적화와 상태 관리에 강점을 가진 개발자입니다.
+            주차장 내비게이션 앱인 워치마일과 마비노기 모바일 유저를 위한 콘텐츠 체크 앱인 "마비노트"를 비롯해 다양한 앱을 설계 및 배포한 경험이 있습니다.
+          </div>
         </div>
-
-        <!-- Projects Section -->
-        <div class="section">
-            <h2>
-                <div class="section-icon">💼</div>
-                주요 프로젝트
-            </h2>
-            
-            <div class="projects-grid">
-                <!-- 프로젝트 1: DMC 한강 호반써밋 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <img src="assets/hoban_pre.jpg" alt="DMC 아이콘" class="project-icon">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-title">DMC 한강 호반써밋 실내 내비게이션 앱</div>
-                        <div class="project-period">2022.07 – 2022.10</div>
-                        <div class="project-description">
-                            아파트 입주민용 실내 위치 안내 앱 개발. Bluetooth 및 Beacon 기반 실내 내비게이션 기능을 구현하고 
-                            현장 테스트 및 QA를 진행하여 iOS/Android 양대 스토어에 성공적으로 배포했습니다.
-                        </div>
-                        <div class="project-tech">
-                            <span class="tech-tag">React Native</span>
-                            <span class="tech-tag">Expo</span>
-                            <span class="tech-tag">BLE (Beacons)</span>
-                            <span class="tech-tag">Reanimated</span>
-                        </div>
-                        <div class="achievements">
-                            <h4>🏆 주요 성과</h4>
-                            <ul>
-                                <li>Beacon 연동 성공률 95% 이상 확보</li>
-                                <li>앱 초기 구동 오류 90% 이상 개선</li>
-                                <li>실내 위치 정확도 ±1.5m 오차 내 확보</li>
-                                <li>iOS/Android 양대 스토어 동시 배포 완료</li>
-                            </ul>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://apps.apple.com/kr/app/%EC%9B%8C%EC%B9%98%EB%A7%88%EC%9D%BC-%ED%98%B8%EB%B0%98-dmc/id1660187115" class="project-link link-demo">App Store</a>
-                            <a href="https://play.google.com/store/apps/details?id=com.vestellalab.watchmilepublic&pcampaignid=web_share" class="project-link link-demo">Google Play</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 프로젝트 2: WatchMile -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <img src="assets/chenho_pre.jpg" alt="천호 아이콘" class="project-icon">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-title">WatchMile 천호역 공영주차장 앱 리뉴얼</div>
-                        <div class="project-period">2023.02 – 2023.07</div>
-                        <div class="project-description">
-                            2년 이상 운영된 구버전 앱을 최신 React Native 버전으로 마이그레이션하고 
-                            전면 리디자인 및 알고리즘 최적화를 수행한 대규모 리뉴얼 프로젝트입니다.
-                        </div>
-                        <div class="project-tech">
-                            <span class="tech-tag">React Native 0.72</span>
-                            <span class="tech-tag">React 18</span>
-                            <span class="tech-tag">Zustand</span>
-                            <span class="tech-tag">React Query</span>
-                            <span class="tech-tag">EAS</span>
-                        </div>
-                        <div class="achievements">
-                            <h4>🏆 주요 성과</h4>
-                            <ul>
-                                <li>로딩 속도 50% 이상 개선 (2.1초 → 1.1초)</li>
-                                <li>앱 크래시율 대폭 감소</li>
-                                <li>QA 리드타임 2일 단축 (자동화 프로세스 도입)</li>
-                                <li>전체 UI 현대적 디자인으로 재구성</li>
-                            </ul>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://apps.apple.com/kr/app/%EC%9B%8C%EC%B9%98%EB%A7%88%EC%9D%BC-%EC%B2%9C%ED%98%B8%EC%97%AD-%EA%B3%B5%EC%98%81%EC%A3%BC%EC%B0%A8%EC%9E%A5/id1536063794" class="project-link link-demo">App store</a>
-                            <a href="https://play.google.com/store/apps/details?id=com.vestellalab.watchmilehobansummitdmc&pcampaignid=web_share" class="project-link link-demo">Google Play</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 프로젝트 3: 마비노트 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <img src="assets/mabinote_pre.png" alt="마비노트 아이콘" class="project-icon">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-title">마비노트 (MabiNote)</div>
-                        <div class="project-period">2025.01 – 2025.03</div>
-                        <div class="project-description">
-                            마비노기 모바일 유저를 위한 일일/주간 콘텐츠 체크 앱. 
-                            데일리 반복 콘텐츠, 위클리 리셋, 즐겨찾기, 필터 기능 등을 지원하며 
-                            모바일 UX 최적화에 중점을 둔 개인 프로젝트입니다.
-                        </div>
-                        <div class="project-tech">
-                            <span class="tech-tag">React Native 0.72</span>
-                            <span class="tech-tag">Expo Router</span>
-                            <span class="tech-tag">Zustand</span>
-                            <span class="tech-tag">SQLite</span>
-                            <span class="tech-tag">Reanimated 3</span>
-                            <span class="tech-tag">EAS Build</span>
-                        </div>
-                        <div class="achievements">
-                            <h4>🏆 주요 성과</h4>
-                            <ul>
-                                <li>기기별 초기 구동 시간 40% 개선</li>
-                                <li>평균 콘텐츠 접근 시간 약 50% 단축</li>
-                                <li>EAS 빌드를 통한 APK 생성 및 배포 완료</li>
-                                <li>다크 모드 및 반응형 레이아웃 지원</li>
-                            </ul>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/Arkaltale/mabinote" class="project-link link-code">GitHub</a>
-                            <a href="https://drive.google.com/file/d/1W2wCoaUXMf9lJMu9iqrTB3w0ANYAa6g6/view?usp=sharing" class="project-link link-download">APK 다운로드</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="contact-info">
+        <div class="contact-item">
+          <span>📧</span>
+          <span>ekfenfl16@gmail.com</span>
         </div>
-
-        <!-- 기술적 관심사 Section -->
-        <div class="section interests-section">
-            <h2>
-                <div class="section-icon">🧠</div>
-                기술적 관심사
-            </h2>
-            <div class="interests-grid">
-                <div class="interest-item">
-                    <div class="interest-icon">⚡</div>
-                    <h3>상태 관리 최적화</h3>
-                    <p>Zustand, Jotai 등 현대적인 상태 관리 라이브러리를 활용한 성능 최적화</p>
-                </div>
-                <div class="interest-item">
-                    <div class="interest-icon">🚀</div>
-                    <h3>빌드 자동화</h3>
-                    <p>EAS Build, OTA 업데이트를 통한 React Native 앱 배포 프로세스 자동화</p>
-                </div>
-                <div class="interest-item">
-                    <div class="interest-icon">🎨</div>
-                    <h3>UI/UX 애니메이션</h3>
-                    <p>Reanimated를 활용한 부드럽고 직관적인 사용자 인터페이스 구현</p>
-                </div>
-                <div class="interest-item">
-                    <div class="interest-icon">💾</div>
-                    <h3>로컬 데이터 처리</h3>
-                    <p>SQLite와 AsyncStorage를 활용한 효율적인 오프라인 데이터 관리</p>
-                </div>
-            </div>
-
-            <div class="highlight-box">
-                <h3>🎯 개발 철학</h3>
-                <p>
-                    사용자 경험을 최우선으로 생각하며, 성능과 안정성을 겸비한 모바일 앱 개발에 전념합니다. 
-                    지속적인 학습과 기술 혁신을 통해 더 나은 서비스를 제공하는 것이 목표입니다.
-                </p>
-            </div>
+        <div class="contact-item">
+          <span>💼</span>
+          <a href="https://github.com/Arkaltale/mabinote" target="_blank" rel="noopener noreferrer"
+            style="color: inherit; text-decoration: none;">
+            GitHub Profile
+          </a>
         </div>
+        <div class="contact-item">
+          <span>📱</span>
+          <span>React Native Developer</span>
+        </div>
+      </div>
     </div>
+
+    <!-- Skills Section -->
+    <div class="section">
+      <h2>
+        <div class="section-icon">🛠️</div>
+        기술 스택
+      </h2>
+      <div class="skills-container">
+        <div class="skill-category">
+          <h3><span class="skill-icon">📱</span>Mobile Development</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">React Native</span>
+            <span class="skill-tag">Expo</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">JavaScript</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3><span class="skill-icon">🎨</span>UI/UX & Animation</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Reanimated</span>
+            <span class="skill-tag">React Native Gesture Handler</span>
+            <span class="skill-tag">StyleSheet</span>
+            <span class="skill-tag">Figma</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3><span class="skill-icon">⚡</span>State Management</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Zustand</span>
+            <span class="skill-tag">React Query</span>
+            <span class="skill-tag">Context API</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3><span class="skill-icon">💾</span>Database & Storage</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">SQLite</span>
+            <span class="skill-tag">AsyncStorage</span>
+            <span class="skill-tag">File System</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3><span class="skill-icon">🔧</span>Build & Deploy</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">EAS Build</span>
+            <span class="skill-tag">OTA Updates</span>
+            <span class="skill-tag">App Store Connect</span>
+            <span class="skill-tag">Google Play Console</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3><span class="skill-icon">📡</span>Native Features</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">BLE (Beacons)</span>
+            <span class="skill-tag">Location Services</span>
+            <span class="skill-tag">Push Notifications</span>
+            <span class="skill-tag">Camera & Media</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="section">
+      <h2>
+        <div class="section-icon">💼</div>
+        주요 프로젝트
+      </h2>
+
+      <div class="projects-grid">
+
+        <!-- 프로젝트 1: WatchMile 천호역 공영주차장 앱 리뉴얼 -->
+        <div class="project-card">
+          <div class="project-header">
+            <img src="assets/chenho_pre.jpg" alt="천호 아이콘" class="project-icon">
+          </div>
+          <div class="project-content">
+            <div class="project-title">WatchMile 천호역 공영주차장 앱 리뉴얼</div>
+            <div class="project-period">2023.02 – 2023.07</div>
+            <div class="project-description">
+              2년 이상 운영된 구버전 앱을 최신 React Native 버전으로 마이그레이션하고
+              전면 리디자인 및 알고리즘 최적화를 수행한 대규모 리뉴얼 프로젝트입니다.
+            </div>
+            <div class="project-tech">
+              <span class="tech-tag">React Native 0.72</span>
+              <span class="tech-tag">React 18</span>
+              <span class="tech-tag">Zustand</span>
+              <span class="tech-tag">React Query</span>
+              <span class="tech-tag">EAS</span>
+            </div>
+            <div class="achievements">
+              <h4>🏆 주요 성과</h4>
+              <ul>
+                <li>로딩 속도 50% 이상 개선 (2.1초 → 1.1초)</li>
+                <li>앱 크래시율 대폭 감소</li>
+                <li>QA 리드타임 2일 단축 (자동화 프로세스 도입)</li>
+                <li>전체 UI 현대적 디자인으로 재구성</li>
+              </ul>
+            </div>
+            <div class="project-links">
+              <a href="https://apps.apple.com/kr/app/%EC%9B%8C%EC%B9%98%EB%A7%88%EC%9D%BC-%EC%B2%9C%ED%98%B8%EC%97%AD-%EA%B3%B5%EC%98%81%EC%A3%BC%EC%B0%A8%EC%9E%A5/id1536063794"
+                class="project-link link-demo">App store</a>
+              <a href="https://play.google.com/store/apps/details?id=com.vestellalab.watchmilehobansummitdmc&pcampaignid=web_share"
+                class="project-link link-demo">Google Play</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 프로젝트 2: 마비노트 -->
+        <div class="project-card">
+          <div class="project-header">
+            <img src="assets/mabinote_pre.png" alt="마비노트 아이콘" class="project-icon">
+          </div>
+          <div class="project-content">
+            <div class="project-title">마비노트 (MabiNote)</div>
+            <div class="project-period">2025.01 – 2025.03</div>
+            <div class="project-description">
+              마비노기 모바일 유저를 위한 일일/주간 콘텐츠 체크 앱.
+              데일리 반복 콘텐츠, 위클리 리셋, 즐겨찾기, 필터 기능 등을 지원하며
+              모바일 UX 최적화에 중점을 둔 개인 프로젝트입니다.
+            </div>
+            <div class="project-tech">
+              <span class="tech-tag">React Native 0.72</span>
+              <span class="tech-tag">Expo Router</span>
+              <span class="tech-tag">Zustand</span>
+              <span class="tech-tag">SQLite</span>
+              <span class="tech-tag">Reanimated 3</span>
+              <span class="tech-tag">EAS Build</span>
+            </div>
+            <div class="achievements">
+              <h4>🏆 주요 성과</h4>
+              <ul>
+                <li>기기별 초기 구동 시간 40% 개선</li>
+                <li>평균 콘텐츠 접근 시간 약 50% 단축</li>
+                <li>EAS 빌드를 통한 APK 생성 및 배포 완료</li>
+                <li>다크 모드 및 반응형 레이아웃 지원</li>
+              </ul>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Arkaltale/mabinote" class="project-link link-code">GitHub</a>
+              <a href="https://drive.google.com/file/d/1W2wCoaUXMf9lJMu9iqrTB3w0ANYAa6g6/view?usp=sharing"
+                class="project-link link-download">APK 다운로드</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 프로젝트 3: 드립 타이머 -->
+        <div class="project-card">
+          <div class="project-header">
+            <img src="assets/driptimer_pre.png" alt="드립 타이머 아이콘" class="project-icon">
+          </div>
+          <div class="project-content">
+            <div class="project-title">드립 타이머 (drip timer)</div>
+            <div class="project-period">2025.07 – 2025.10</div>
+            <div class="project-description">
+              드립 커피 애호가를 위한 개인화된 드립 커피 레시피 관리 및 브루잉 타이머 앱입니다. 
+              레시피 CRUD, 상세 타이머, 브루잉 로그, 다크 모드 등 모바일 앱의 핵심 기능을 종합적으로 구현한 개인 프로젝트입니다.
+            </div>
+            <div class="project-tech">
+              <span class="tech-tag">React Native</span>
+              <span class="tech-tag">Expo</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">SQLite</span>
+              <span class="tech-tag">Reanimated</span>
+              <span class="tech-tag">Context API</span>
+            </div>
+            <div class="achievements">
+              <h4>🏆 주요 성과</h4>
+              <ul>
+                <li>SQLite를 활용한 레시피 및 로그 데이터 영속성 확보 (CRUD)</li>
+                <li>Reanimated 기반 원형 프로그레스 바 등 동적 UI 구현</li>
+                <li>Context API를 활용한 전역 테마 시스템 및 다크 모드 지원</li>
+                <li>KeyboardAwareScrollView 등을 이용한 복잡한 폼 UX 최적화</li>
+              </ul>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Arkaltale/drip-coffee-timer" class="project-link link-code">GitHub</a>
+              <a href="https://drive.google.com/file/d/1VyzIMJWFd2HeYXtO1By2pDLpaZbB9Mwf/view?usp=drive_link"
+                class="project-link link-download">APK 다운로드</a>
+            </div>
+          </div>
+        </div>
+
+
+
+        
+      </div>
+    </div>
+
+    <!-- 기술적 관심사 Section -->
+    <div class="section interests-section">
+      <h2>
+        <div class="section-icon">🧠</div>
+        기술적 관심사
+      </h2>
+      <div class="interests-grid">
+        <div class="interest-item">
+          <div class="interest-icon">⚡</div>
+          <h3>상태 관리 최적화</h3>
+          <p>Zustand, Jotai 등 현대적인 상태 관리 라이브러리를 활용한 성능 최적화</p>
+        </div>
+        <div class="interest-item">
+          <div class="interest-icon">🚀</div>
+          <h3>빌드 자동화</h3>
+          <p>EAS Build, OTA 업데이트를 통한 React Native 앱 배포 프로세스 자동화</p>
+        </div>
+        <div class="interest-item">
+          <div class="interest-icon">🎨</div>
+          <h3>UI/UX 애니메이션</h3>
+          <p>Reanimated를 활용한 부드럽고 직관적인 사용자 인터페이스 구현</p>
+        </div>
+        <div class="interest-item">
+          <div class="interest-icon">💾</div>
+          <h3>로컬 데이터 처리</h3>
+          <p>SQLite와 AsyncStorage를 활용한 효율적인 오프라인 데이터 관리</p>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <h3>🎯 개발 철학</h3>
+        <p>
+          사용자 경험을 최우선으로 생각하며, 성능과 안정성을 겸비한 모바일 앱 개발에 전념합니다.
+          지속적인 학습과 기술 혁신을 통해 더 나은 서비스를 제공하는 것이 목표입니다.
+        </p>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
